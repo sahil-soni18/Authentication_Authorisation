@@ -7,6 +7,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 // Define the schema for form validation using Zod
 const quoteSchema = z.object({
@@ -24,6 +25,7 @@ export const AddQuoteForm: React.FC = () => {
     resolver: zodResolver(quoteSchema),
   });
 
+  const navigate = useNavigate(); // Use useNavigate from React Router
   const onSubmit = (data: QuoteFormValues) => {
     // Handle form submission logic
     console.log(data);
@@ -32,9 +34,11 @@ export const AddQuoteForm: React.FC = () => {
     }).then(response => {
       if(response.status === 201) {
         alert("Quote Added.");
+        navigate("/quotes");
       } 
     }).catch(err => {
       console.log(err);
+      alert("Internal Server Error...");
     })
     // Here you would send the data to your backend using something like axios or fetch
     // Example: axios.post('/api/quotes', data)

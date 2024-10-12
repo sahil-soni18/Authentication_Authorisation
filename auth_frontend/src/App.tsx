@@ -9,7 +9,7 @@ const App: React.FC = () => {
   useEffect(() => {
     // Check login status on component mount
     axios
-      .get("http://localhost:3000", { withCredentials: true })
+      .get("http://localhost:3000/", { withCredentials: true })
       .then((response) => {
         console.log(`response (Home Page) = ${JSON.stringify(response)}...`);
         if (response.status === 200 && response.data.loggedIn) {
