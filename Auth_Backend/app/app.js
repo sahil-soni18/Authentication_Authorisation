@@ -165,16 +165,20 @@ app.post("/addQuote", isLoggedIn, async (req, res) => {
     const { quote, author } = req.body;
 
     try {
+        const email = req.user.email;  // Get userId from JWT
         await Quote.create({
             quote: quote,
-            author: author,
-        })
-    } catch (error) {
-        
-    }
+            author: author || "Unknown",  // Set default author if not provided
+            email: email,  // Link quote to logged-in user
+        });
 
-    
-})
+        res.status(201).send("Quote successfully added!");
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal Server Error...");
+    }
+});
+
 app.listen(port, () => {
     console.log(`Server listening on port ${port}...`);
 })

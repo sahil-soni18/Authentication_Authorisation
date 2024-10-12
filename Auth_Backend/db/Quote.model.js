@@ -13,8 +13,8 @@ const Quote = sequelize.define(
             type: DataTypes.TEXT,
             defaultValue: "Unkown"
         },
-        userId: {
-            type: DataTypes.UUID,
+        email: {
+            type: DataTypes.STRING,
             allowNull: false,
         }
     },
